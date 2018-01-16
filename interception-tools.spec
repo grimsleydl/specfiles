@@ -23,15 +23,15 @@ Summary:         A minimal composable infrastructure on top of libudev and libev
 License:         GPL3
 URL:             https://gitlab.com/interception/linux/tools
 Requires:        libevdev2
-Requires:        libevdev-devel
-Requires:        yaml-cpp-devel
-Requires:        libudev-devel
 Requires:        systemd
 Source0:         https://gitlab.com/interception/linux/tools/repository/v%{version}/archive.tar.gz
 # Source1:       udevmon.service
 # BuildRequires: boost
 BuildRequires:   cmake
 BuildRequires:   gcc
+BuildRequires:        libevdev-devel
+BuildRequires:        yaml-cpp-devel
+BuildRequires:        libudev-devel
 BuildRoot:       %{_tmppath}/%{name}-%{version}-build
 
 %description
