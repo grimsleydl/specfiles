@@ -24,7 +24,6 @@ License:         GPL3
 URL:             https://github.com/grimsleydl/caps2esc
 Requires:        interception-tools
 Source0:         https://github.com/grimsleydl/%{name}/archive/v%{version}/archive.tar.gz
-# Source0:         https://gitlab.com/interception/linux/plugins/caps2esc/repository/v%{version}/archive.tar.gz
 # BuildRequires: boost
 BuildRequires:   cmake
 BuildRequires:   gcc
@@ -34,7 +33,6 @@ BuildRoot:       %{_tmppath}/%{name}-%{version}-build
 caps2esc: transforming the most useless key ever in the most useful one
 
 %prep
-# %setup -n tools-v%{version}-92830567d8d86384fd42502aa0eb3de12584cdaf
 %setup -n %{name}-%{version}
 
 %build
@@ -42,11 +40,6 @@ caps2esc: transforming the most useless key ever in the most useful one
 make %{?_smp_mflags}
 
 %install
-#cd ${srcdir}/tools-v${pkgver}-*;
-#mkdir -p "${pkgdir}/usr/share/licenses/${pkgname}";
-#install -m 444 LICENSE.md "${pkgdir}/usr/share/licenses/${pkgname}";
-#mkdir -p "${pkgdir}/usr/lib/systemd/system";
-#make install
 cat <<EOF > udevmon.yaml
 - JOB: "intercept -g $DEVNODE | caps2esc | uinput -d $DEVNODE"
 DEVICE:
