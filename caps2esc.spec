@@ -42,9 +42,9 @@ make %{?_smp_mflags}
 %install
 cat <<EOF > udevmon.yaml
 - JOB: "intercept -g $DEVNODE | caps2esc | uinput -d $DEVNODE"
-DEVICE:
-EVENTS:
-EV_KEY: [KEY_CAPSLOCK, KEY_ESC]
+  DEVICE:
+    EVENTS:
+      EV_KEY: [KEY_CAPSLOCK, KEY_ESC]
 EOF
 install -D -m 644 "udevmon.yaml" %{buildroot}/etc/udevmon.yaml
 cd build/
@@ -53,6 +53,7 @@ make install DESTDIR=%{buildroot}
 %files
 # TODO: Add files
 /usr/bin/caps2esc
+/etc/udevmon.yaml
 
 %changelog
 * Thu Dec 21 2017 grimsleydl <grimsleydl@gmail.com> - 0.1.1
