@@ -21,9 +21,9 @@ Version:         0.1.3
 Release:         1%{?dist}
 Summary:         A minimal composable infrastructure on top of libudev and libevdev
 License:         GPL3
-URL:             https://gitlab.com/interception/linux/plugins/caps2esc
+URL:             https://github.com/grimsleydl/caps2esc
 Requires:        interception-tools
-Source0:         https://gitlab.com/interception/linux/plugins/caps2esc/repository/v%{version}/archive.tar.gz
+Source0:         https://github.com/grimsleydl/%{name}/archive/v%{version}/archive.tar.gz
 # BuildRequires: boost
 BuildRequires:   cmake
 BuildRequires:   gcc
@@ -33,25 +33,27 @@ BuildRoot:       %{_tmppath}/%{name}-%{version}-build
 caps2esc: transforming the most useless key ever in the most useful one
 
 %prep
-# %setup -n tools-v%{version}-92830567d8d86384fd42502aa0eb3de12584cdaf
-%setup -n %{name}-v%{version}-bb09cd8d9a3f04463df55cb4ba63d2d4920e04a9
+%setup -n %{name}-%{version}
 
 %build
 %cmake
 make %{?_smp_mflags}
 
 %install
-#cd ${srcdir}/tools-v${pkgver}-*;
-#mkdir -p "${pkgdir}/usr/share/licenses/${pkgname}";
-#install -m 444 LICENSE.md "${pkgdir}/usr/share/licenses/${pkgname}";
-#mkdir -p "${pkgdir}/usr/lib/systemd/system";
-#make install
+cat <<EOF > udevmon.yaml
+- JOB: "intercept -g \$DEVNODE | caps2esc | uinput -d \$DEVNODE"
+  DEVICE:
+    EVENTS:
+      EV_KEY: [KEY_CAPSLOCK, KEY_ESC]
+EOF
+install -D -m 644 "udevmon.yaml" %{buildroot}/etc/udevmon.yaml
 cd build/
 make install DESTDIR=%{buildroot}
 
 %files
 # TODO: Add files
 /usr/bin/caps2esc
+/etc/udevmon.yaml
 
 %changelog
 * Thu Dec 21 2017 grimsleydl <grimsleydl@gmail.com> - 0.1.1
