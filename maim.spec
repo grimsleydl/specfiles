@@ -18,7 +18,7 @@
 
 # See also http://en.opensuse.org/openSUSE:Specfile_guidelines
 Name:           maim
-Version:        5.5
+Version:        5.5.1
 Release:        0
 Summary:        Flexible screenshotting utility
 License:        GPL-3.0+
